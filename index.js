@@ -12,5 +12,29 @@ const tutorials = [
 ];
 
 const titleCased = () => {
-  return tutorials
-}
+  return tutorials.map(tutorial => {
+    return tutorial
+      .split(" ")
+      .map(word => {
+        // Handle specific words with special capitalization
+        if (word === 'stopPropagation') {
+          return 'StopPropagation';
+        } else if (word === 'preventDefault') {
+          return 'PreventDefault';
+        }
+        // Handle special cases for acronyms
+        if (word === 'JSONP') {
+          return 'JSONP'; // Ensure JSONP is in uppercase
+        }
+        // For special words that should remain unchanged
+        if (["API", "OO", "NaN"].includes(word)) {
+          return word;
+        }
+        // Capitalize the first letter of other words
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
+      .join(" ");
+  });
+};
+
+console.log(titleCased());
